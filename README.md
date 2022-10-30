@@ -9,4 +9,6 @@ dataStruct
 6. fib
 # Vector
 # List
+# Stack
+# Queue
 
