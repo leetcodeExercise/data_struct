@@ -1,0 +1,7 @@
+﻿cmake_minimum_required (VERSION 3.8)
+project(test)
+FILE(GLOB SOURCE_1 "${CMAKE_SOURCE_DIR}/main.cpp")
+FILE(GLOB SOURCE_2 "${CMAKE_SOURCE_DIR}/src/*.cpp")
+INCLUDE_DIRECTORIES("${CMAKE_SOURCE_DIR}/src/*.h")
+ADD_DEFINITIONS("-Wall -std=c++20")
+add_executable (${PROJECT_NAME} ${SOURCE_1} ${SOURCE_2})
