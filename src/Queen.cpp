@@ -1,3 +1,4 @@
+#include "stack.h"
 #include "Queen.h"
 
 void QueenGame::placeQueen(int N)

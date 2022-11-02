@@ -1,4 +1,4 @@
-#include "stack.h"
+#pragma once
 
 struct Queen {
 	int x;

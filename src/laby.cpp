@@ -1,3 +1,5 @@
+#include <cstdlib>
+#include "stack.h"
 #include "laby.h"
 
 bool Laby::labyrinth(Cell laby[LABY_MAX][LABY_MAX], Cell* s, Cell* t) {
@@ -21,7 +23,7 @@ bool Laby::labyrinth(Cell laby[LABY_MAX][LABY_MAX], Cell* s, Cell* t) {
             c->outgoing = ESWN::Unknown;
             c->status = Status::Route;
         } 
-    } while (!path.empty())
+    } while (!path.empty());
     
     return false;
 }
@@ -31,7 +33,7 @@ Cell* Laby::neighbor(Cell* cell) {
         case ESWN::South: return cell + 1;
         case ESWN::West: return cell - LABY_MAX;
         case ESWN::North: return cell - 1;
-        default exit(-1);
+        default: std::exit(-1);
     }
 }
 Cell* Laby::advance(Cell* cell) {
@@ -53,7 +55,7 @@ Cell* Laby::advance(Cell* cell) {
             next = cell - 1;
             next->incoming = ESWN::South;
         }
-        default exit(-1);
+        default: std::exit(-1);
     }
     return next;
 }

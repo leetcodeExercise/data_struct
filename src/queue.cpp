@@ -1,5 +1,17 @@
+#include <cstdlib>
+#include "list.h"
 #include "queue.h"
 
+struct Customer {
+    int window;
+    unsigned int time;
+};
+
+class Simulation {
+public:
+    void simulate(int nWin, int servTime);
+    int bestWindow(Queue<Customer> windows[], int nWin);
+};
 void Simulation::simulate(int nWin, int servTime) {
     Queue<Customer>* windows = new Queue<Customer>[nWin];
     for (int now = 0; now < servTime; now++) {
@@ -9,7 +21,7 @@ void Simulation::simulate(int nWin, int servTime) {
             c.window = bestWindow(windows, nWin);
             windows[c.window].enqueue(c);
         }
-        for (int i = 0; i < nWin; i++) {
+        for (int i = 0; i < windows->size(); i++) {
             if (!windows[i].empty())
                 if (--windows[i].front().time <= 0)
                     windows[i].dequeue();
@@ -18,7 +30,7 @@ void Simulation::simulate(int nWin, int servTime) {
 
     delete[] windows;
 }
-int bestWindow(Queue<Customer> windows[], int nWin) {
+int Simulation::bestWindow(Queue<Customer> windows[], int nWin) {
     int minSize = windows[0].size();
     int optiWin = 0;
     for (int i = 1; i < nWin; i++) {
