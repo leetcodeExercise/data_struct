@@ -12,10 +12,14 @@ int main()
     std::vector<std::thread> readers;
     int writeThreadNum = 50;
     int readThreadNum = 200;
-    std::string s = "sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+    std::string s = "ssssssssssssssssssssssssssssssssssssssssssssssssss\
+                     ssssssssssssssssssssssssssssssssssssssssssssssssss\
+                     ssssssssssssssssssssssssssssssssssssssssssssssssss\
+                     ssssssssssssssssssssssssssssssssssssssssssssssssss\
+                     ssssssssssssssssssssssssssssssaaaaaaaaaaaaaaaaaaaa";
 
     for (int i = 0; i < writeThreadNum; i++) {
-        std::thread writer(&SharedMutex::write, &sMutex, s + std::to_string(i));
+        std::thread writer(&SharedMutex::write, &sMutex, s);
         writers.push_back(std::move(writer));
     }
     for (int i = 0; i < readThreadNum; i++) {
@@ -24,7 +28,7 @@ int main()
     }
 
     for (int i = 0; i < writeThreadNum; i++) {
-        std::thread writer(&NormalMutex::write, &nMutex, s + std::to_string(i));
+        std::thread writer(&NormalMutex::write, &nMutex, s);
         writers.push_back(std::move(writer));
     }
     for (int i = 0; i < readThreadNum; i++) {

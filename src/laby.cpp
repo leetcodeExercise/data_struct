@@ -27,6 +27,7 @@ bool Laby::labyrinth(Cell laby[LABY_MAX][LABY_MAX], Cell* s, Cell* t) {
     
     return false;
 }
+
 Cell* Laby::neighbor(Cell* cell) {
     switch (cell->outgoing) {
         case ESWN::East: return cell + LABY_MAX;
@@ -36,6 +37,7 @@ Cell* Laby::neighbor(Cell* cell) {
         default: std::exit(-1);
     }
 }
+
 Cell* Laby::advance(Cell* cell) {
     Cell* next;
     switch(cell->outgoing) {

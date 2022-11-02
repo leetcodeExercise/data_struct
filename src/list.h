@@ -4,6 +4,7 @@
 
 template<typename T> struct ListNode;
 template<typename T> using ListNodePosi = ListNode<T>*;
+
 template<typename T> struct ListNode {
 	T data;
 	ListNodePosi<T> pred;

@@ -12,6 +12,7 @@ public:
     void simulate(int nWin, int servTime);
     int bestWindow(Queue<Customer> windows[], int nWin);
 };
+
 void Simulation::simulate(int nWin, int servTime) {
     Queue<Customer>* windows = new Queue<Customer>[nWin];
     for (int now = 0; now < servTime; now++) {
@@ -30,6 +31,7 @@ void Simulation::simulate(int nWin, int servTime) {
 
     delete[] windows;
 }
+
 int Simulation::bestWindow(Queue<Customer> windows[], int nWin) {
     int minSize = windows[0].size();
     int optiWin = 0;

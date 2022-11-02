@@ -11,6 +11,7 @@ protected:
 	Rank _size;
 	Rank _capacity;
 	T* _elem;
+	
 	void copyForm(const T* A, Rank lo, Rank hi);
 	void expand();
 	void shrink();
@@ -26,6 +27,7 @@ protected:
 	Rank partition(Rank lo, Rank hi);
 	void quickSort(Rank lo, Rank hi); // TODO
 	void shellSort(Rank lo, Rank hi); // TODO
+
 public:
 	Vector(int c = DEFAULT_CAPACITY, Rank s = 0, T v = 0)
 	{

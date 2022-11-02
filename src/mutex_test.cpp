@@ -111,7 +111,7 @@ NormalMutex& NormalMutex::operator=(const NormalMutex& smx)
         _data = smx._data;
     }
     return (*this);
-};
+}
 
 NormalMutex::NormalMutex(const NormalMutex& origin)
 {

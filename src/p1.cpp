@@ -38,6 +38,7 @@ void shuffle(int A[], int lo, int hi)
 {
 	shuffle(A + lo, hi - lo);
 }
+
 void reverse1(int* A, int lo, int hi)
 {
 	while (lo < hi)
@@ -132,6 +133,7 @@ void bubblesort2(int A[], int n)
 	std::cout << "cmp " << cmp << " swp " << swp << std::endl;
 }
 int64_t sqr(int64_t a) { return a * a; }
+
 int64_t fib(int n) { return (2 > n) ? (__int64)n : fib(n - 1) + fib(n - 2); }
 
 int64_t powerBF(int64_t a, int n)
@@ -226,12 +228,14 @@ Fib::Fib(int n)
     while (g < n)
         next();
 }
+
 int Fib::next()
 {
     g += f;
     f = g - f;
     return g;
 }
+
 int Fib::prev()
 {
     f = g - f;

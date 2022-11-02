@@ -37,6 +37,7 @@ public:
 	int get() const { return g; }
 	int next();
 	int prev();
+	
 private:
 	int f;
 	int g;
