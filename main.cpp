@@ -1,48 +1,29 @@
-#include <iostream>
-#include <string>
-#include "src/p1.h"
 #include "src/mutex_test.h"
 
 int main()
-{
-    SharedMutex sMutex;
-    NormalMutex nMutex;
+{ 
+    // write read cost test
+    std::vector<int64_t> dataBase;
+    auto t1 = Clock::now();
+    writeData(dataBase, 1);
+    auto t2 = Clock::now();
+    auto m1 = findMax(dataBase);
+    auto t3 = Clock::now();
+    writeData(dataBase, 2);
+    auto t4 = Clock::now();
+    auto m2 = findMax(dataBase);
+    auto t5 = Clock::now();
+    std::cout << "writeCost_1st " << duration(t1, t2) << " readCost_1st " << duration(t2, t3) 
+              << " writeCost_2nd " << duration(t3, t4) << " readCost_2nd " << duration(t4, t5)
+              << std::endl;
 
-    std::vector<std::thread> writers;
-    std::vector<std::thread> readers;
-    int writeThreadNum = 50;
-    int readThreadNum = 200;
-    std::string s = "ssssssssssssssssssssssssssssssssssssssssssssssssss\
-                     ssssssssssssssssssssssssssssssssssssssssssssssssss\
-                     ssssssssssssssssssssssssssssssssssssssssssssssssss\
-                     ssssssssssssssssssssssssssssssssssssssssssssssssss\
-                     ssssssssssssssssssssssssssssssaaaaaaaaaaaaaaaaaaaa";
+    // mutex cost test
+    constexpr size_t loopCount = 1000;
+    constexpr size_t readerCount = 40;
+    constexpr size_t writerCount = 1;
+    benchmark<SharedMutex>(loopCount, readerCount, writerCount);
+    benchmark<NormalMutex>(loopCount, readerCount, writerCount);
 
-    for (int i = 0; i < writeThreadNum; i++) {
-        std::thread writer(&SharedMutex::write, &sMutex, s);
-        writers.push_back(std::move(writer));
-    }
-    for (int i = 0; i < readThreadNum; i++) {
-        std::thread reader(&SharedMutex::waitAndRead, &sMutex);
-        readers.push_back(std::move(reader));
-    }
-
-    for (int i = 0; i < writeThreadNum; i++) {
-        std::thread writer(&NormalMutex::write, &nMutex, s);
-        writers.push_back(std::move(writer));
-    }
-    for (int i = 0; i < readThreadNum; i++) {
-        std::thread reader(&NormalMutex::waitAndRead, &nMutex);
-        readers.push_back(std::move(reader));
-    }
-
-    for (auto& thread : writers)
-        if (thread.joinable())
-            thread.join();
-    for (auto& thread : readers)
-        if (thread.joinable())
-            thread.join();
-    nMutex.timePrint();
-    sMutex.timePrint();
-    // return p1::TEST_P1();
+    std::cout << m1 << " " << m2 << std::endl; // prevent optimization
+    return 0;
 }
